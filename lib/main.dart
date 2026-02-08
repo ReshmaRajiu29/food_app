@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'pages/root.dart';
-import 'theme/color.dart';
+import 'package:provider/provider.dart' show ChangeNotifierProvider;
+import 'providers/cart_provider.dart';
+import 'pages/home_page.dart';
+import 'pages/cart_page.dart';
+import 'pages/checkout_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,14 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Food App',
-      theme: ThemeData(
-        primaryColor: primary,
-        textTheme: GoogleFonts.latoTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: const RootApp(),
+      routes: {
+        '/': (_) => const HomePage(),
+        '/cart': (_) => const CartPage(),
+        '/checkout': (_) => const CheckoutPage(),
+      },
     );
   }
 }
