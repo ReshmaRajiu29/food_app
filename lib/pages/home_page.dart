@@ -4,7 +4,7 @@ import '../data/food_data.dart' as food_data show foods;
 import '../widgets/food_title.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required String tableNumber});
 
   @override
   Widget build(BuildContext context) {

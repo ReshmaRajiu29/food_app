@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' show ChangeNotifierProvider;
+import 'package:provider/provider.dart';
 import 'providers/cart_provider.dart';
-import 'pages/home_page.dart';
+
+import 'pages/table_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/checkout_page.dart';
 
@@ -21,8 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
+      // ✅ Start from table page
+      home: const TablePage(),
+
+      // only keep other routes
       routes: {
-        '/': (_) => const HomePage(),
         '/cart': (_) => const CartPage(),
         '/checkout': (_) => const CheckoutPage(),
       },
