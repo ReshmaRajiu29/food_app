@@ -7,7 +7,7 @@ class CheckoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<CartProvider>(); // 👈 watch instead of read
+    final cart = context.watch<CartProvider>();
 
     return Scaffold(
       appBar: AppBar(title: const Text("Checkout")),
@@ -17,29 +17,21 @@ class CheckoutPage extends StatelessWidget {
           children: [
             Text("Table: ${cart.tableNumber}"),
             const SizedBox(height: 20),
-            Text(
-              "Total: ₹${cart.total}",
-              style: const TextStyle(fontSize: 22),
-            ),
+            Text("Total: ₹${cart.total}", style: const TextStyle(fontSize: 22)),
             const SizedBox(height: 40),
             ElevatedButton(
               child: const Text("Confirm Order"),
               onPressed: () async {
                 await showDialog(
                   context: context,
-                  builder: (_) => AlertDialog(
-                    title: const Text("Order Placed ✅"),
-                    content: const Text("Your food is being prepared!"),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text("OK"),
-                      )
-                    ],
+                  builder: (_) => const AlertDialog(
+                    title: Text("Order Placed ✅"),
+                    content: Text("Food is being prepared 🍽️"),
                   ),
                 );
 
-                cart.clearOrder();
+                // ignore: use_build_context_synchronously
+                context.read<CartProvider>().clearOrder();
 
                 // ignore: use_build_context_synchronously
                 Navigator.popUntil(context, (route) => route.isFirst);
