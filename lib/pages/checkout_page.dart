@@ -41,6 +41,7 @@ class CheckoutPage extends StatelessWidget {
 
                 cart.clearOrder();
 
+                // ignore: use_build_context_synchronously
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
             ),
