@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
+import 'receipt_page.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -17,24 +18,21 @@ class CheckoutPage extends StatelessWidget {
           children: [
             Text("Table: ${cart.tableNumber}"),
             const SizedBox(height: 20),
-            Text("Total: ₹${cart.total}", style: const TextStyle(fontSize: 22)),
+            Text(
+              "Total: ₹${cart.total}",
+              style: const TextStyle(fontSize: 22),
+            ),
             const SizedBox(height: 40),
             ElevatedButton(
               child: const Text("Confirm Order"),
-              onPressed: () async {
-                await showDialog(
-                  context: context,
-                  builder: (_) => const AlertDialog(
-                    title: Text("Order Placed ✅"),
-                    content: Text("Food is being prepared 🍽️"),
+              onPressed: () {
+                // ✅ Go to receipt instead of dialog
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ReceiptPage(),
                   ),
                 );
-
-                // ignore: use_build_context_synchronously
-                context.read<CartProvider>().clearOrder();
-
-                // ignore: use_build_context_synchronously
-                Navigator.popUntil(context, (route) => route.isFirst);
               },
             ),
           ],
