@@ -21,7 +21,7 @@ class CartTile extends StatelessWidget {
       ),
       trailing: IconButton(
         icon: const Icon(Icons.add),
-        onPressed: () => provider.increaseQty(item),
+        onPressed: () => provider.decreaseQty(item),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
 import 'home_page.dart';
 
 class TablePage extends StatefulWidget {
@@ -9,49 +11,46 @@ class TablePage extends StatefulWidget {
 }
 
 class _TablePageState extends State<TablePage> {
-  final TextEditingController controller = TextEditingController();
+  final controller = TextEditingController();
 
-  void continueToMenu() {
+  void start() {
     if (controller.text.isEmpty) return;
+
+    context.read<CartProvider>().setTable(controller.text);
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => HomePage(
-          tableNumber: controller.text,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => const HomePage()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Enter Table Number")),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Welcome 🍽️",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 30),
-            TextField(
-              controller: controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: "Table Number",
-                border: OutlineInputBorder(),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("🍽️ Smart Restaurant",
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 30),
+              TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: "Enter Table Number",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: continueToMenu,
-              child: const Text("Start Ordering"),
-            ),
-          ],
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: start,
+                child: const Text("Start Ordering"),
+              )
+            ],
+          ),
         ),
       ),
     );

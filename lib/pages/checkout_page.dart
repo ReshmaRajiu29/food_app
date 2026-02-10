@@ -13,12 +13,9 @@ class CheckoutPage extends StatelessWidget {
       appBar: AppBar(title: const Text("Checkout")),
       body: Center(
         child: ElevatedButton(
-          child: const Text("Confirm & Pay"),
+          child: const Text("Confirm Order"),
           onPressed: () {
-            cart.clearCart();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Order placed!")),
-            );
+            cart.clearOrder();
             Navigator.popUntil(context, (route) => route.isFirst);
           },
         ),
