@@ -12,12 +12,21 @@ class CheckoutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Checkout")),
       body: Center(
-        child: ElevatedButton(
-          child: const Text("Confirm Order"),
-          onPressed: () {
-            cart.clearOrder();
-            Navigator.popUntil(context, (route) => route.isFirst);
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Table: ${cart.tableNumber}"),
+            const SizedBox(height: 20),
+            Text("Total: ₹${cart.total}", style: const TextStyle(fontSize: 22)),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              child: const Text("Confirm Order"),
+              onPressed: () {
+                cart.clearOrder();
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+            ),
+          ],
         ),
       ),
     );

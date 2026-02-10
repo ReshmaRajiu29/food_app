@@ -12,13 +12,11 @@ class CartProvider extends ChangeNotifier {
   double get total =>
       _items.fold(0, (sum, item) => sum + item.food.price * item.qty);
 
-  // ---------- TABLE ----------
   void setTable(String number) {
     tableNumber = number;
     notifyListeners();
   }
 
-  // ---------- CART ----------
   void addItem(Food food) {
     final index = _items.indexWhere((e) => e.food.name == food.name);
 
@@ -27,23 +25,26 @@ class CartProvider extends ChangeNotifier {
     } else {
       _items.add(CartItem(food: food));
     }
-
     notifyListeners();
   }
 
-  void removeItem(CartItem item) {
-    _items.remove(item);
+  void increaseQty(CartItem item) {
+    item.qty++;
     notifyListeners();
   }
 
-  // ---------- EXIT ----------
+  void decreaseQty(CartItem item) {
+    if (item.qty > 1) {
+      item.qty--;
+    } else {
+      _items.remove(item);
+    }
+    notifyListeners();
+  }
+
   void clearOrder() {
     tableNumber = "";
     _items.clear();
     notifyListeners();
   }
-
-  void decreaseQty(CartItem item) {}
-
-  void addToCart(Food food) {}
 }
